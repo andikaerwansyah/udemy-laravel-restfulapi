@@ -27,9 +27,9 @@ class SellerController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Seller $seller) // implicit model binding
     {
-        $seller = Seller::has('products')->findOrFail($id);
+        // $seller = Seller::has('products')->findOrFail($id); // tidak lagi digunakan 
         
         return $this->showOne($seller);
     }

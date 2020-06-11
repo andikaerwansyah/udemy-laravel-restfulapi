@@ -12,9 +12,11 @@
 ;xdebug.remote_port = 9000
 ;xdebug.max_nesting_level = 512
 
-3. Restart Nginx And PHP Fpm
+3. Restart Nginx
 
 `sudo service nginx restart`
+
+4. Restart PHP FPM
 `sudo service php7.3-fpm restart`
 
 ## License

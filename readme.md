@@ -17,6 +17,7 @@
 `sudo service nginx restart`
 
 4. Restart PHP FPM
+
 `sudo service php7.3-fpm restart`
 
 ## License

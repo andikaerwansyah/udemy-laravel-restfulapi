@@ -28,7 +28,16 @@ class CategoryController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+        
+        $newCategory = Category::create($request->all());
+
+        return $this->showOne($newCategory, 201); // 201 created successfully
     }
 
     /**
@@ -39,7 +48,7 @@ class CategoryController extends ApiController
      */
     public function show(Category $category)
     {
-        //
+        return $this->showOne($category);
     }
 
     /**
@@ -51,7 +60,29 @@ class CategoryController extends ApiController
      */
     public function update(Request $request, Category $category)
     {
-        //
+        // nilainya harus berbeda 
+
+        $category->fill($request->intersect([ // laravel 5.4
+            'name',
+            'description',
+        ]));
+
+        // $category->fill($request->only([ // laravel 5.5 > UP
+        //     'name',
+        //     'description',
+        // ]));
+
+        // if (!$category->isDirty()) {
+        //     return $this->errorResponse('You need to specify any diffrent value', 422);
+        // }
+
+        if ($category->isClean()) {
+            return $this->errorResponse('You need to specify any diffrent value', 422);
+        }
+
+        $category->save();
+
+        return $this->showOne($category);
     }
 
     /**
@@ -62,6 +93,8 @@ class CategoryController extends ApiController
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return $this->showOne($category);
     }
 }

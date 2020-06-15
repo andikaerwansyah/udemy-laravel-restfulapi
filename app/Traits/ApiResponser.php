@@ -39,9 +39,11 @@ trait ApiResponser {
      * @param integer $code
      * @return void
      */
-    protected function showAll(Collection $collection, $code = 200){
+    protected function showAll($code = 200, $description ,Collection $collection){
         return $this->successResponse([
-            'data' => $collection,
+            'code' => $code,
+            'description' => $description,
+            'contents' => $collection,
         ], $code);
     }
 
@@ -52,9 +54,11 @@ trait ApiResponser {
      * @param integer $code
      * @return void
      */
-    protected function showOne(Model $model, $code = 200){
+    protected function showOne($code = 200 ,$description ,Model $model){
         return $this->successResponse([
-            'data' => $model
+            'code' => $code,
+            'description' => $description,
+            'contents' => $model,
         ], $code);
     }
 }

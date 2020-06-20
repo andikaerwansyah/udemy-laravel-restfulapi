@@ -19,7 +19,7 @@ class ProductCategoryController extends ApiController
     {
         $categories = $product->categories;
 
-        return $this->showAll($categories);
+        return $this->showAll('Success',$categories);
     }
     
     /**
@@ -37,7 +37,7 @@ class ProductCategoryController extends ApiController
         // $product->categories()->sync([$category->id]); // malah ngapus id yang lainnya
         $product->categories()->syncWithoutDetaching([$category->id]); // malah ngapus id yang lainnya
 
-        return $this->showAll($product->categories);
+        return $this->showAll('Success',$product->categories);
 
     }
     
@@ -56,6 +56,6 @@ class ProductCategoryController extends ApiController
 
         $product->categories()->detach($category->id);
 
-        return $this->showAll($product->categories);
+        return $this->showAll('Success',$product->categories);
     }
 }

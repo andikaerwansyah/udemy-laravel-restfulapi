@@ -17,7 +17,7 @@ class BuyerController extends ApiController
     {
         $buyers = Buyer::has('transaction')->get();
 
-        return $this->showAll($buyers);
+        return $this->showAll('Success',$buyers);
     }
 
     /**
@@ -30,6 +30,6 @@ class BuyerController extends ApiController
     {
         $buyer = Buyer::has('transaction')->findOrFail($id);
 
-        return $this->showOne($buyer);
+        return $this->showOne('Success',$buyer);
     }
 }

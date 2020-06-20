@@ -7,6 +7,7 @@ use App\Seller;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SellerProductController extends ApiController
@@ -21,7 +22,7 @@ class SellerProductController extends ApiController
     {
         $products = $seller->products;
 
-        return $this->showAll($products);
+        return $this->showAll(200 , 'Get list of products successfully', $products);
     }
 
 
@@ -46,11 +47,12 @@ class SellerProductController extends ApiController
         $data = $request->all();
 
         $data['status'] = Product::UNAVAILABLE_PRODUCT;
-        $data['image']= '1.jpg';
+        $data['image']= $request->image->store('');
         $data['seller_id'] = $seller->id;
+        
         $product = Product::create($data);
 
-        return $this->showOne($product);
+        return $this->showOne(201 ,'Created successfully' ,$product);
 
     }
 
@@ -90,13 +92,19 @@ class SellerProductController extends ApiController
             }
         }
 
+        if ($request->hasFile('image')) {
+            Storage::delete($product->image);
+
+            $product->image = $request->image->store('');
+        }
+
         if ($product->isClean()) {
             return $this->errorResponse('Please insert a diffrent value to update', 422);
         }
 
         $product->save();
 
-        return $this->showOne($product);
+        return $this->showOne(200,'Success update product',$product);
     }
 
     /**
@@ -110,9 +118,11 @@ class SellerProductController extends ApiController
     {
         $this->checkSeller($seller, $product);
 
+        Storage::delete($product->image); // delete an image
+        
         $product->delete();
 
-        return $this->showOne($product);
+        return $this->showOne(200,'Deleted successfully',$product);
     }
 
     /**

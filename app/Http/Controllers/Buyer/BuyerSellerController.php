@@ -22,6 +22,6 @@ class BuyerSellerController extends ApiController
                   ->unique('id')
                   ->values();
         
-        return $this->showAll($sellers);
+        return $this->showAll('Success',$sellers);
     }
 }

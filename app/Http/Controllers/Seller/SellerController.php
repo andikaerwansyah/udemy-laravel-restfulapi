@@ -17,7 +17,7 @@ class SellerController extends ApiController
     {
         $sellers = Seller::has('products')->get();
 
-        return $this->showAll($sellers);
+        return $this->showAll('Success',$sellers);
     }
 
 
@@ -31,6 +31,6 @@ class SellerController extends ApiController
     {
         // $seller = Seller::has('products')->findOrFail($id); // tidak lagi digunakan 
         
-        return $this->showOne($seller);
+        return $this->showOne(200,'Success get seller by id',$seller);
     }
 }

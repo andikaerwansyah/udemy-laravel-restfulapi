@@ -22,6 +22,6 @@ class BuyerProductController extends ApiController
                     ->pluck('product'); // ekstrak spesifik key dari object yang akan di gunakan
 
 
-        return $this->showAll($products);
+        return $this->showAll('Success',$products);
     }
 }

@@ -1,3 +1,9 @@
+## Running Project
+1. Start Project On Virtual Machine
+`vagrant up`
+2. URL 
+`restfulapi.test`
+
 ## Nginx 502 Bad Gateway On Vagrant VM
 
 1. Open xdebug.ini file
